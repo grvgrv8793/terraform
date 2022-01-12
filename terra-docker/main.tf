@@ -14,20 +14,20 @@ resource "docker_image" "nodered_image" {
 }
 
 resource "docker_container" "nodered_container" {
-    name = "nodered_app"
-    image = docker_image.nodered_image.latest  
-    ports{
-        internal = 1880
-        external = 1880
-    }
+  name  = "nodered_app"
+  image = docker_image.nodered_image.latest
+  ports {
+    internal = 1880
+    external = 1880
+  }
 }
 
 output "IP-Address" {
-  value = docker_container.nodered_container.ip_address
+  value       = join(":", [docker_container.nodered_container.ip_address, docker_container.nodered_container.ports[0].external])
   description = "IP address of container"
 }
 
-output "Container-name"{
-  value = docker_container.nodered_container.name
+output "Container-name" {
+  value       = docker_container.nodered_container.name
   description = "the name of conatiner"
 }
