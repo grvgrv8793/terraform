@@ -64,7 +64,7 @@ output "IP-Address2" {
   description = "IP address of container"
 }
 
-output "Container-name2" {
+output "Container-name-2" {
   value       = docker_container.nodered_container2.name
   description = "the name of conatiner"
 }
