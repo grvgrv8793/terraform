@@ -37,22 +37,13 @@ resource "docker_container" "nodered_container" {
 }
 
 
-output "IP-Address1" {
-  value       = join(":", [docker_container.nodered_container[0].ip_address, docker_container.nodered_container[0].ports[0].external])
-  description = "IP address of container"
-}
-
-output "Container-name1" {
-  value       = docker_container.nodered_container[0].name
+output "Container-name" {
+  value       = docker_container.nodered_container[*].name // Here * is a splat operator used for looping
   description = "the name of conatiner"
 }
 
-output "IP-Address2" {
-  value       = join(":", [docker_container.nodered_container[1].ip_address, docker_container.nodered_container[1].ports[0].external])
+output "IP-Address" { // This is how we use for loop, here we are ittrating over container and fetching values
+  value       = [for i in docker_container.nodered_container[*]: join(":", [i.ip_address],i.ports[*]["external"])]
   description = "IP address of container"
 }
 
-output "Container-name-2" {
-  value       = docker_container.nodered_container[1].name
-  description = "the name of conatiner"
-}
