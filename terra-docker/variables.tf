@@ -1,3 +1,20 @@
+variable "env" {
+  type        = string
+  default     = "dev"
+  description = "Env to Deploy"
+}
+
+// This is how we defaine map variable and for accessing/retriving value of maps we use lookup function
+
+variable "image" {
+  type        = map(any)
+  description = "Image for container"
+  default = {
+    dev  = "nodered/node-red:latest"
+    prod = "nodered/node-red:latest-minimal"
+  }
+}
+
 variable "ext_port" {
   type = list(any)
 

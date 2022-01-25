@@ -16,7 +16,10 @@ provider "random" {}
 
 
 resource "docker_image" "nodered_image" {
-  name = "nodered/node-red:latest"
+  name = lookup(var.image, var.env)
+
+  //Syntax: lookup(map,key,default)
+  /// here we are using lookup function to access value of maps
 }
 
 resource "random_string" "random1" {
