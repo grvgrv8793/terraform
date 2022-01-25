@@ -1,10 +1,11 @@
 variable "ext_port" {
   type = list(any)
 
-  # validation {
-  #   condition     = var.ext_port <= 65535 && var.ext_port > 0
-  #   error_message = "The external port should be in range 0 - 65535."
-  # }
+  validation {
+    condition = max(var.ext_port...) <= 65535 && min(var.ext_port...) > 0
+    // This is how we use max and min function with list of variables, Also ... is an expand/spread operator similar to JS
+    error_message = "The external port should be in range 0 - 65535."
+  }
 }
 
 variable "int_port" {
