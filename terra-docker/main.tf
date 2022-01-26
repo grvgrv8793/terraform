@@ -16,7 +16,7 @@ provider "random" {}
 
 
 resource "docker_image" "nodered_image" {
-  name = lookup(var.image, terraform.workspace)
+  name = var.image[terraform.workspace]
 
   //Syntax: lookup(map,key,default)
   /// here we are using lookup function to access value of maps
@@ -36,7 +36,7 @@ resource "docker_container" "nodered_container" {
   image = docker_image.nodered_image.latest
   ports {
     internal = var.int_port
-    external = lookup(var.ext_port, terraform.workspace)[count.index]
+    external = var.ext_port[terraform.workspace][count.index]
   }
 }
 
