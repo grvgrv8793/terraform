@@ -1,8 +1,11 @@
-variable "env" {
-  type        = string
-  default     = "dev"
-  description = "Env to Deploy"
-}
+# variable "env" {
+#   type        = string
+#   default     = "dev"   
+#   description = "Env to Deploy"
+# }
+# We are going to use above vraibles by using terraform.workspace variable
+
+
 
 // This is how we defaine map variable and for accessing/retriving value of maps we use lookup function
 
@@ -43,6 +46,6 @@ variable "int_port" {
 }
 
 locals {
-  container_count = length(lookup(var.ext_port, var.env))
+  container_count = length(lookup(var.ext_port, terraform.workspace))
   // Adding lookup as we changed external to maps
 }
